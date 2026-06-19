@@ -1,0 +1,12 @@
+{
+    "image": "docker.io/library/ubuntu:latest",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "Fuzionix.devtool-plus"
+            ]
+        }
+    },
+    "onCreateCommand": "apt-get update && apt-get install -y build-essential && gcc lz.c -o lztest.exe && ./lztest.exe"
+}
