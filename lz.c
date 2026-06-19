@@ -1,3 +1,5 @@
+// Author: Dawie Boers
+
 #include <stdint.h>
 #include <stddef.h>
 #include <string.h>
@@ -22,10 +24,13 @@ typedef struct
     size_t length;
 } CompressedData;
 
-#define DIST_TYPE uint8_t // Change to uint16_t for input greater than 255 characters
+// Change to uint16_t for input greater than 255 characters
+#define DIST_TYPE uint8_t
 #define LENG_TYPE uint8_t
+
 #define MAX_MATCH UINT8_MAX
-#define MIN_MATCH sizeof(DIST_TYPE) + sizeof(LENG_TYPE) // Exclude matches too small to save memory on.
+// Exclude matches too small to save memory on.
+#define MIN_MATCH sizeof(DIST_TYPE) + sizeof(LENG_TYPE)
 
 void mprintf(char *str)
 {
@@ -89,7 +94,8 @@ CompressedData lz77(char *input, const size_t input_length)
             }
         }
 
-        // Ensure match length doesn't extend beyond what would be available in output during decompression
+        // Ensure match length doesn't extend beyond what
+        // would be available in output during decompression
         if (is_match)
         {
             int max_safe_match_length = cursor - match;
@@ -100,6 +106,7 @@ CompressedData lz77(char *input, const size_t input_length)
         }
 
         // Bit flags
+        // Uses the LZSS system with flag buffers to encode stuff
 
         *buffer = (*buffer << 1) | is_match;
         bit_count++;
