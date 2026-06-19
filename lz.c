@@ -32,27 +32,6 @@ typedef struct
 // Exclude matches too small to save memory on.
 #define MIN_MATCH sizeof(DIST_TYPE) + sizeof(LENG_TYPE)
 
-void mprintf(char *str)
-{
-    size_t len = strlen(str);
-    for (int i = 0; i < len; i++)
-    {
-        unsigned char c = str[i];
-        if (c >= '!' && c <= '~')
-        {
-            putchar(c);
-        }
-        else if (c == '\n' || c == ' ')
-        {
-            putchar(c);
-        }
-        else
-        {
-            printf("%d", c);
-        }
-    }
-}
-
 CompressedData lz77(char *input, const size_t input_length)
 {
     uint8_t *out = malloc(input_length + 1);
@@ -272,7 +251,7 @@ int main()
     char *decompressed = decompress(compressed.compressed, compressed.length);
 
     printf("Decompressed: (");
-    mprintf(decompressed);
+    printf(decompressed);
     printf(")\n");
 
     if (strcmp(input, decompressed) == 0)
